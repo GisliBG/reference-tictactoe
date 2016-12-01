@@ -1,8 +1,8 @@
-FROM node
+FROM node:6.9.1
 WORKDIR /ticktactoe
-COPY package.json .
+
+COPY . /ticktactoe
 RUN npm install --silent
-COPY index.js .
-COPY ./test/ /code/test
-EXPOSE 3000
+
+EXPOSE 8080
 CMD ["node","run.js"]
