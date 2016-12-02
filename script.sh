@@ -39,6 +39,7 @@ cat > ./build/public/version.html << _EOF_
 </body>
 _EOF_
 
+cp ./Dockerfile ./build/
 cp ./migratescript.sh ./build/
 
 cd build
