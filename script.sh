@@ -11,7 +11,6 @@ fi
 # Remove .git from url in order to get https link to repo (assumes https url for GitHub)
 export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
 
-
 echo Building app
 npm run build
 
@@ -20,7 +19,6 @@ if [[ $rc != 0 ]] ; then
     echo "Npm build failed with exit code " $rc
     exit $rc
 fi
-
 
 cat > ./build/githash.txt <_EOF_
 $GIT_COMMIT
@@ -39,8 +37,13 @@ cat > ./build/public/version.html << _EOF_
 </body>
 _EOF_
 
+
 cp ./Dockerfile ./build/
 cp ./migratescript.sh ./build/
+
+cat > ./.env << _EOF_
+GIT_COMMIT=$GIT_COMMIT
+_EOF_
 
 cd build
 echo Building docker image
@@ -54,6 +57,8 @@ if [[ $rc != 0 ]] ; then
 fi
 
 sudo docker push gislibg/tictactoe:$GIT_COMMIT
+
+
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Docker push failed " $rc

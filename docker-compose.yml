@@ -2,7 +2,7 @@ version: '2'
 
 services:
   server:
-    image: gislibg/tictactoe
+    image: gislibg/tictactoe:${GIT_COMMIT}
     environment:
       - PGHOST=postgres
       - PGPORT=5432
