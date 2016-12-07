@@ -1,8 +1,10 @@
 #!/bin/bash
 
+#Remove previous build 
 echo Cleaning...
 rm -rf ./build
 
+#Aquire git information from current commit
 if [ -z "$GIT_COMMIT" ]; then
   export GIT_COMMIT=$(git rev-parse HEAD)
   export GIT_URL=$(git config --get remote.origin.url)
@@ -37,16 +39,18 @@ cat > ./build/public/version.html << _EOF_
 </body>
 _EOF_
 
+#Move neccesery files to build folder so they will be available on other state machines
 cp ./Dockerfile ./build/
 cp ./migratescript.sh ./build/
 
+#Saving this commit id on a enviorment file to identify with docker build 
 cat > ./.env << _EOF_
 GIT_COMMIT=$GIT_COMMIT
 _EOF_
 
 cd build
 echo Building docker image
-
+#create image with current git commit as tag
 sudo docker build -t gislibg/tictactoe:$GIT_COMMIT .
 
 rc=$?
@@ -54,9 +58,9 @@ if [[ $rc != 0 ]] ; then
     echo "Docker build failed " $rc
     exit $rc
 fi
-
+#send the image to the docker hub
+echo Pushing docker image
 sudo docker push gislibg/tictactoe:$GIT_COMMIT
-
 
 rc=$?
 if [[ $rc != 0 ]] ; then
@@ -64,4 +68,13 @@ if [[ $rc != 0 ]] ; then
     exit $rc
 fi
 
+echo "sending docker-compse & env folder to aws"
+#Supposed to be done on jenkins, these commands will be moved when Jenkins is up and running.
+scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/docker-compose.yml  ec2-user@35.160.42.253:~/.
+scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/.env  ec2-user@35.160.42.253:~/.
+
+#echo "restarting docker build on aws server(work in progress)"
+#ssh -i ~/Downloads/gislibg-key-pair.pem ec2-user@35.160.42.253 < ../provisioning/provision.sh
+
 echo "Done"
+

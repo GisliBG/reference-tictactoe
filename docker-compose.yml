@@ -6,11 +6,10 @@ services:
     environment:
       - PGHOST=postgres
       - PGPORT=5432
-      - PORT=3000
       - NODE_ENV=prod
     ports:
-      - "8080:8080"
-      - "3000:3000"
+      - "80:8080"
+      - "8080:3000"
     depends_on:
       - postgres
   postgres:
