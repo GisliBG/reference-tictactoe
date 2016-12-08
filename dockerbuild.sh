@@ -69,12 +69,12 @@ if [[ $rc != 0 ]] ; then
 fi
 
 echo "sending docker-compse & env folder to aws"
-#Supposed to be done on jenkins, these commands will be moved when Jenkins is up and running.
-#scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/docker-compose.yml  ec2-user@35.160.42.253:~/.
-#scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/.env  ec2-user@35.160.42.253:~/.
+#Moving neccesery files to aws so it can run
+scp -i ~/gislibg-key-pair.pem ~/../../var/lib/jenkins/workspace/Commit\ Stage\ Job/docker-compose.yml  ec2-user@35.160.42.253:~/.
+scp -i ~/gislibg-key-pair.pem ~~/../../var/lib/jenkins/workspace/Commit\ Stage\ Job/.env  ec2-user@35.160.42.253:~/.
 
-#echo "restarting docker build on aws server(work in progress)"
+echo "restarting docker build on aws server(work in progress)"
 #ssh -i ~/Downloads/gislibg-key-pair.pem ec2-user@35.160.42.253 < ../provisioning/provision.sh
-
+ssh -i ~/gislibg-key-pair.pem ec2-user@35.160.42.253
 echo "Done"
 
