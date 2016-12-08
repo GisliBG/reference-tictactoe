@@ -51,7 +51,7 @@ _EOF_
 cd build
 echo Building docker image
 #create image with current git commit as tag
-sudo docker build -t gislibg/tictactoe:$GIT_COMMIT .
+docker build -t gislibg/tictactoe:$GIT_COMMIT .
 
 rc=$?
 if [[ $rc != 0 ]] ; then
@@ -60,7 +60,7 @@ if [[ $rc != 0 ]] ; then
 fi
 #send the image to the docker hub
 echo Pushing docker image
-sudo docker push gislibg/tictactoe:$GIT_COMMIT
+docker push gislibg/tictactoe:$GIT_COMMIT
 
 rc=$?
 if [[ $rc != 0 ]] ; then
