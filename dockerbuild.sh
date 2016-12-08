@@ -70,8 +70,8 @@ fi
 
 echo "sending docker-compse & env folder to aws"
 #Supposed to be done on jenkins, these commands will be moved when Jenkins is up and running.
-scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/docker-compose.yml  ec2-user@35.160.42.253:~/.
-scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/.env  ec2-user@35.160.42.253:~/.
+#scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/docker-compose.yml  ec2-user@35.160.42.253:~/.
+#scp -i ~/Downloads/gislibg-key-pair.pem ~/Documents/hgop/reference-tictactoe/.env  ec2-user@35.160.42.253:~/.
 
 #echo "restarting docker build on aws server(work in progress)"
 #ssh -i ~/Downloads/gislibg-key-pair.pem ec2-user@35.160.42.253 < ../provisioning/provision.sh
