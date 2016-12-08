@@ -44,7 +44,7 @@ cp ./Dockerfile ./build/
 cp ./migratescript.sh ./build/
 
 #Saving this commit id on a enviorment file to identify with docker build 
-cat > ./.env << _EOF_
+cat > ./.env <<_EOF_
 GIT_COMMIT=$GIT_COMMIT
 _EOF_
 
