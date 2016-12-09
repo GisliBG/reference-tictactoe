@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#Remove previous build 
-echo Cleaning...
-rm -rf ./build
-
 #Aquire git information from current commit
 if [ -z "$GIT_COMMIT" ]; then
   export GIT_COMMIT=$(git rev-parse HEAD)
@@ -12,10 +8,6 @@ fi
 
 # Remove .git from url in order to get https link to repo (assumes https url for GitHub)
 export GITHUB_URL=$(echo $GIT_URL | rev | cut -c 5- | rev)
-npm install --silent && cd client && npm install --silent
-cd ..
-echo Building app
-npm run build
 
 rc=$?
 if [[ $rc != 0 ]] ; then
@@ -39,10 +31,6 @@ cat > ./build/public/version.html <<_EOF_
    <div><a href="$GITHUB_URL/commits/$GIT_COMMIT">History of current version</a></div>
 </body>
 _EOF_
-
-#Move neccesery files to build folder so they will be available on other state machines
-cp ./Dockerfile ./build/
-cp ./migratescript.sh ./build/
 
 #Saving this commit id on a enviorment file to identify with docker build 
 cat > ./.env <<_EOF_
@@ -69,13 +57,4 @@ if [[ $rc != 0 ]] ; then
     exit $rc
 fi
 
-echo "sending docker-compse & env folder to aws"
-#Moving neccesery files to aws so it can run
-scp -i ~/gislibg-key-pair.pem ~/workspace/Commit\ Stage\ Job/docker-compose.yml  ec2-user@35.160.42.253:~/.
-scp -i ~/gislibg-key-pair.pem ~/workspace/Commit\ Stage\ Job/.env  ec2-user@35.160.42.253:~/.
-
-echo "restarting docker build on aws server(work in progress)"
-#ssh -i ~/Downloads/gislibg-key-pair.pem ec2-user@35.160.42.253 < ../provisioning/provision.sh
-ssh -i ~/gislibg-key-pair.pem ec2-user@35.160.42.253 < ../provisioning/provision.sh
-echo "Done"
 
