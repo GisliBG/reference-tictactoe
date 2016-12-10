@@ -10,4 +10,6 @@ cd ..
 echo Building app
 npm run build
 
+cp ./Dockerfile ./build/
+cp ./migratescript.sh ./build/
 
