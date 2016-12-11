@@ -1,3 +1,11 @@
+.ConnectedUsers {
+    position: fixed;
+    left: 0;
+    top: 190px;
+    text-align: left;
+
+}
+
 .ConnectedUsers ul{
     list-style: none;
     padding-left: 5px;

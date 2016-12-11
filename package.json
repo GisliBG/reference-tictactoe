@@ -21,11 +21,18 @@
     "socket.io": "^1.5.1"
   },
   "devDependencies": {
-    "expect.js": "^0.3.1",
-    "jasmine": "^2.5.2",
-    "jasmine-console-reporter": "^1.2.7",
-    "should": "^11.1.1",
+    "jest": "^17.0.3",
     "socket.io-client": "^1.6.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testPathDirs": [
+      "server/"
+    ],
+    "setupFiles": [
+      "server/jest-setup.js"
+    ],
+    "bail": true
   },
   "scripts": {
     "startclient": "cd ./client && npm run start",
@@ -39,8 +46,6 @@
     "loadtest": "export NODE_PATH=. && ./node_modules/.bin/jest --config apitest/loadtest-jest.json",
     "dev": "./node_modules/.bin/parallelshell 'npm run start' 'npm run startclient'",
     "migratedb-dev": "db-migrate --config ./server/database.json --migrations-dir ./server/migrations up -e dev",
-    "migratedb-prod": "db-migrate --config ./server/database.json --migrations-dir ./server/migrations up -e prod",
-    "startdockerdb": "docker run -p 5432:5432 --name pg2 -e POSTGRES_PASSWORD=mysecretpassword -d postgres",
-    "connectdockerdb": "docker run -it --rm --link pg3:postgres postgres psql -h postgres -U postgres"
+    "migratedb-prod": "db-migrate --config ./server/database.json --migrations-dir ./server/migrations up -e prod"
   }
 }

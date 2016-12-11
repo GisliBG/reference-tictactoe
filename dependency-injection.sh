@@ -10,6 +10,6 @@ cd ..
 echo Building app
 npm run build
 
+#Move neccesery files to build folder so they will be available on other state machines
 cp ./Dockerfile ./build/
 cp ./migratescript.sh ./build/
-

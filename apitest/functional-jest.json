@@ -1,0 +1,10 @@
+{
+  "verbose": true,
+  "testPathDirs": [
+    "apitest/"
+  ],
+  "setupFiles": [
+    "server/jest-setup.js"
+  ],
+  "bail": true
+}
