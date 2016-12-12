@@ -11,6 +11,12 @@ cd ..
 echo running tests
 ./startTests.sh
 
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "Npm test failed with exit code " $rc
+    exit $rc
+fi
+
 echo Building app
 npm run build
 
