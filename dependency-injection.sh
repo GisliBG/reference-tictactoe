@@ -4,7 +4,7 @@
 echo Cleaning...
 rm -rf ./build
 
-#install all dependencies and run build
+echo instaling all dependencies
 npm install --silent && cd client && npm install --silent
 cd ..
 
