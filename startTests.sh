@@ -4,6 +4,6 @@ npm run test-prod
 
 echo client side testing
 cd ./client
-npm run test-prod
+CI=true npm run test-prod
 
 
