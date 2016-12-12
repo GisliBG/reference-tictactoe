@@ -16,7 +16,8 @@
   "scripts": {
     "start": "export NODE_PATH=./src/ && react-scripts start",
     "build": "export NODE_PATH=./src/ && react-scripts build",
-    "test": "export NODE_PATH=./src/ && react-scripts test --env=jsdom --watchAll",
+    "test-env": "export NODE_PATH=./src/ && react-scripts test --env=jsdom --watchAll",
+    "test-prod": "export NODE_PATH=./src/ && react-scripts test --env=jsdom --a",
     "eject": "react-scripts eject"
   }
 }
