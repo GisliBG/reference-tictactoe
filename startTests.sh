@@ -1,9 +1,9 @@
 #!/bin/bash
 
-npm run test
+npm run test-prod
 
 cd ./client
-npm run test
+npm run test-prod
 
 
 
