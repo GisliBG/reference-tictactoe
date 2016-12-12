@@ -2,19 +2,8 @@
 
 npm run test-prod
 
-rc=$?
-if [[ $rc != 0 ]] ; then
-    echo "Npm test failed with exit code " $rc
-    exit $rc
-fi
-
+echo client side testing
 cd ./client
-npm run test-prod
+npm run test
 
-rc=$?
-if [[ $rc != 0 ]] ; then
-    echo "Npm client test failed with exit code " $rc
-    exit $rc
-fi
 
-cd ..
