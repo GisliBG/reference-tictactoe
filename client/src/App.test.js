@@ -6,12 +6,11 @@ import fakeIoModule from './_test/fakeIo';
 import appContextModule from './appContext';
 
 var io = fakeIoModule();
-var eventRouter = fakeIoModule();
 
 var { App } = appContextModule(inject({
   io:io,
   env:'test',
-  eventRouter:eventRouter
+  eventRouter:io
 }));
 
 
