@@ -21,19 +21,12 @@
     "socket.io": "^1.5.1"
   },
   "devDependencies": {
-    "jest": "^17.0.3",
+    "expect.js": "^0.3.1",
+    "jasmine": "^2.5.2",
+    "jasmine-console-reporter": "^1.2.7",
+    "should": "^11.1.1",
     "socket.io-client": "^1.6.0"
-  },
-  "jest": {
-    "verbose": true,
-    "testPathDirs": [
-      "server/"
-    ],
-    "setupFiles": [
-      "server/jest-setup.js"
-    ],
-    "bail": true
-  },
+},
   "scripts": {
     "startclient": "cd ./client && npm run start",
     "buildclient": "cd ./client && npm run build",
