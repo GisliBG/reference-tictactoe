@@ -229,13 +229,34 @@ describe('Place move command', function() {
         ];
     });
 
+    it('Should emit gameWon with three horizontal O at the top', function() {
+        given = [
+                    createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 3),
+                    movePlacedEvent("Gummi", 'O', 0),               movePlacedEvent("Gisli", 'X', 4),
+                    movePlacedEvent("Gummi", 'O', 1),               movePlacedEvent("Gisli", 'X', 7)
+                ];
+        when = placeMoveEvent("Gummi", 'O', 2);
+        then = [ movePlacedEvent("Gummi", 'O', 2),
+            {
+                type: "GameWon",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "O",
+                mark: 2
+            }
+        ];
+    });
+
     it('Should not emit game draw if won on last move', function() {
         given = [
-            createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
-            movePlacedEvent("Gummi", 'O', 1),               movePlacedEvent("Gisli", 'X', 2),
-            movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 4),
-            movePlacedEvent("Gummi", 'O', 5),               movePlacedEvent("Gisli", 'X', 8),
-            movePlacedEvent("Gummi", 'O', 7),              
+                    createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
+                    movePlacedEvent("Gummi", 'O', 1),               movePlacedEvent("Gisli", 'X', 2),
+                    movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 4),
+                    movePlacedEvent("Gummi", 'O', 5),               movePlacedEvent("Gisli", 'X', 8),
+                    movePlacedEvent("Gummi", 'O', 7),              
                 ];
         when = placeMoveEvent("Gisli", 'X', 6);
         then = [ movePlacedEvent("Gisli", 'X', 6),
