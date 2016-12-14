@@ -43,7 +43,6 @@ module.exports = function(injected){
                         }]);
                     },
                     "PlaceMove": function(cmd){
-                        console.debug("mark:", cmd.mark);
                         if(gameState.isMarked(cmd.mark)) {
                             eventHandler( [{
                                 gameId: cmd.gameId,

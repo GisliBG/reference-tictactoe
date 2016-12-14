@@ -7,22 +7,77 @@ var tictactoe = require('./tictactoe-handler')(inject({
     TictactoeState
 }));
 
-var createEvent = {
-    type: "GameCreated",
-    user: {
-        userName: "TheGuy"
-    },
-    name: "TheFirstGame",
-    timeStamp: "2014-12-02T11:29:29"
+var createEvent = function(name) {
+    return {
+        type: "GameCreated",
+        user: {
+            userName: name
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29",
+        side: 'X'
+    }
 };
 
-var joinEvent = {
-    type: "GameJoined",
-    user: {
-        userName: "Gummi"
-    },
-    name: "TheFirstGame",
-    timeStamp: "2014-12-02T11:29:29"
+var joinEvent = function(name) {
+    return {
+        type: "JoinGame",
+        user: {
+            userName: name
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29",
+        side: 'O'
+    }
+};
+
+var gameJoinedEvent = function(name) {
+    return {
+        type: "GameJoined",
+        user: {
+            userName: name
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29",
+        side:'O'
+    }
+};
+
+var fullGameJoinEvent = function(name) {
+    return {
+        type: "FullGameJoinAttempted",
+        user: {
+            userName: name
+        },
+        name: "TheFirstGame",
+        timeStamp: "2014-12-02T11:29:29"
+    }
+};
+
+var placeMoveEvent = function(name, side, mark) {
+    return {
+        type: "PlaceMove",
+        user: {
+            userName: name
+        },
+        name: "TheGame",
+        timeStamp: "2014-12-02T11:29:29",
+        side: side,
+        mark: mark
+    }
+};
+
+var movePlacedEvent = function(name, side, mark) {
+    return {
+        type: "MovePlaced",
+        user: {
+            userName: name
+        },
+        name: "TheGame",
+        timeStamp: "2014-12-02T11:29:29",
+        side: side,
+        mark: mark
+    }
 };
 
 
@@ -57,17 +112,7 @@ describe('create game command', function() {
             name: "TheFirstGame",
             timeStamp: "2014-12-02T11:29:29"
         };
-        then = [
-            {
-                type: "GameCreated",
-                user: {
-                    userName: "TheGuy"
-                },
-                name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side:'X'
-            }
-        ];
+        then = [createEvent("TheGuy")];
 
     })
 });
@@ -93,78 +138,17 @@ describe('join game command', function () {
 
     it('should emit game joined event...', function () {
 
-        given = [{
-            type: "GameCreated",
-            user: {
-                userName: "TheGuy"
-            },
-            name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:29:29"
-        }
-        ];
-        when =
-        {
-            type: "JoinGame",
-            user: {
-                userName: "Gummi"
-            },
-            name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:29:29"
-        };
-        then = [
-            {
-                type: "GameJoined",
-                user: {
-                    userName: "Gummi"
-                },
-                name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side:'O'
-            }
-        ];
+        given = [createEvent("Gisli")];
+        when = joinEvent("Gummi");
+        then = [gameJoinedEvent("Gummi")];
 
     });
 
     it('should emit FullGameJoinAttempted event when game is full', function () {
 
-        given = [
-            {
-            type: "GameCreated",
-            user: {
-                userName: "TheGuy"
-            },
-            name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:29:29"
-            },
-            {
-                type: "GameJoined",
-                user: {
-                    userName: "Gummi"
-                },
-                name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side:'O'
-            }
-        ];
-        when =
-        {
-            type: "JoinGame",
-            user: {
-                userName: "Gisli"
-            },
-            name: "TheFirstGame",
-            timeStamp: "2014-12-02T11:30:29"
-        };
-        then = [
-            {
-                type: "FullGameJoinAttempted",
-                user: {
-                    userName: "Gisli"
-                },
-                name: "TheFirstGame",
-                timeStamp: "2014-12-02T11:30:29"
-            }
-        ];
+        given = [createEvent("Kalli"), gameJoinedEvent("Gummi")];
+        when = joinEvent("Gisli");
+        then = [fullGameJoinEvent("Gisli")];
     });
 });
 
@@ -185,93 +169,14 @@ describe('Place move command', function() {
     });
 
     it('should emit MovePlaced on first game move', function() {
-         given = [
-            {
-            type: "GameCreated",
-            user: {
-                userName: "TheGuy"
-            },
-            name: "TheGame",
-            timeStamp: "2014-12-02T11:29:29",
-            side:'X',
-            },
-            {
-                type: "GameJoined",
-                user: {
-                    userName: "Gummi"
-                },
-                name: "TheGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side:'O'
-            }
-        ];
-        when = 
-        {
-            type: "PlaceMove",
-            user: {
-                userName: "TheGuy"
-            },
-            name: "TheGame",
-            timeStamp: "2014-12-02T11:29:29",
-            side: "X",
-            mark: 0
-        };
-        then = [
-            {
-                type: "MovePlaced",
-                user: {
-                    userName: "TheGuy"
-                },
-                name: "TheGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side: "X",
-                mark: 0
-            }
-        ];
+        given = [createEvent("Gisli"), gameJoinedEvent("Gummi")];
+        when = placeMoveEvent("Gisli", 'X', 0);
+        then = [movePlacedEvent("Gisli", 'X', 0)];
     });
 
-    fit('should emit IllegalMove when square is already occupied', function() {
-        given = [
-            {
-                type: "GameCreated",
-                user: {
-                    userName: "TheGuy"
-                },
-                name: "TheGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side:'X'
-            },
-            {
-                type: "GameJoined",
-                user: {
-                    userName: "Gummi"
-                },
-                name: "TheGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side:'O'
-            },
-            {
-                type: "MovePlaced",
-                user: {
-                    userName: "TheGuy"
-            },
-                name: "TheGame",
-                timeStamp: "2014-12-02T11:29:29",
-                side: "X",
-                mark: 0
-            },
-        ];
-        when = 
-        {
-            type: "PlaceMove",
-            user: {
-                userName: "Gummi"
-            },
-            name: "TheGame",
-            timeStamp: "2014-12-02T11:29:29",
-            side: "O",
-            mark: 0
-        };
+    it('should emit IllegalMove when square is already occupied', function() {
+        given = [createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0)];
+        when = placeMoveEvent("Gummi", 'O', 0);
         then = [
             {
                 type: "IllegalMove",
