@@ -273,4 +273,49 @@ describe('Place move command', function() {
         ];
     });
 
+    it('Should emit game draw when neither wins', function() {
+        given = [
+                    createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
+                    movePlacedEvent("Gummi", 'O', 2),               movePlacedEvent("Gisli", 'X', 1),
+                    movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 5),
+                    movePlacedEvent("Gummi", 'O', 4),               movePlacedEvent("Gisli", 'X', 8),
+                    movePlacedEvent("Gummi", 'O', 7),              
+                ];
+        when = placeMoveEvent("Gisli", 'X', 6);
+        then = [ movePlacedEvent("Gisli", 'X', 6),
+            {
+                type: "GameDraw",
+                user: {
+                    userName: "Gisli"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "X",
+                mark: 6
+            }
+        ];
+    });
+
+    it('Should emit game draw when neither wins (draw scenerio part2)', function() {
+        given = [
+                    createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
+                    movePlacedEvent("Gummi", 'O', 2),               movePlacedEvent("Gisli", 'X', 1),
+                    movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 5),
+                    movePlacedEvent("Gummi", 'O', 4),               movePlacedEvent("Gisli", 'X', 7),
+                    movePlacedEvent("Gummi", 'O', 8),              
+                ];
+        when = placeMoveEvent("Gisli", 'X', 6);
+        then = [ movePlacedEvent("Gisli", 'X', 6),
+            {
+                type: "GameDraw",
+                user: {
+                    userName: "Gisli"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "X",
+                mark: 6
+            }
+        ];
+    });
 });

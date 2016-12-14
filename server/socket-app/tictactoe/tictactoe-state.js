@@ -7,6 +7,7 @@ module.exports = function (injected) {
         var gamefull= false;
         var gameWon = false;
         var player = 'X';
+        var moves = 0;
         var gameBoard = [ '.', '*', '*', 
                           '*', '.', '.', 
                           '.', '*', '*' ]; 
@@ -17,7 +18,8 @@ module.exports = function (injected) {
             }
             if(event.type==="MovePlaced") {
                 gameBoard[event.mark] = player;
-                console.log("gameBoard", gameBoard);
+                moves++;
+                
                 if(event.side === 'X') {
                     player = 'O';
                 }
@@ -43,6 +45,10 @@ module.exports = function (injected) {
                      (gameBoard[2] === gameBoard[4] && gameBoard[2] === gameBoard[6]) )
         }
 
+        function gameIsDraw() {
+            return moves === 9;
+        }
+
         function outOfTurn(side) {
             return !(side===player); 
         }
@@ -58,6 +64,7 @@ module.exports = function (injected) {
         processEvents(history);
 
         return {
+            gameIsDraw: gameIsDraw,
             gameHasBeenWon: gameHasBeenWon,
             outOfTurn: outOfTurn,
             isMarked: isMarked,

@@ -93,6 +93,20 @@ module.exports = function(injected){
                                 side: cmd.side,
                                 mark: cmd.mark
                             });
+                            return;
+                        }
+
+                        if(gameState.gameIsDraw()) {
+                            events.push({
+                                gameId: cmd.gameId,
+                                type: "GameDraw",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                mark: cmd.mark
+                            });
+                            return;
                         } 
 
                         // Check here for conditions which may warrant additional events to be emitted.
