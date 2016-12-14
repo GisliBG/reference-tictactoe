@@ -125,7 +125,7 @@ describe('join game command', function () {
 
     });
 
-    it('should emit FullGameJoinAttempted event when game full..implement this', function () {
+    it('should emit FullGameJoinAttempted event when game is full', function () {
 
         given = [
             {
@@ -166,4 +166,70 @@ describe('join game command', function () {
             }
         ];
     });
+});
+
+describe('Place move command', function() {
+    
+    var given, when, then;
+
+    beforeEach(function () {
+        given = undefined;
+        when = undefined;
+        then = undefined;
+    });
+
+    afterEach(function () {
+        tictactoe(given).executeCommand(when, function (actualEvents) {
+            should(JSON.stringify(actualEvents)).be.exactly(JSON.stringify(then));
+        });
+    });
+
+    it('should emit MovePlaced on first game move', function() {
+         given = [
+            {
+            type: "GameCreated",
+            user: {
+                userName: "TheGuy"
+            },
+            name: "TheGame",
+            timeStamp: "2014-12-02T11:29:29",
+            side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'O'
+            }
+        ];
+        when = 
+        {
+            gameId: 1,
+            type: "PlaceMove",
+            user: {
+                userName: "TheGuy"
+            },
+            name: "TheGame",
+            timeStamp: "2014-12-02T11:29:29",
+            side: "X"
+        };
+        then = [
+            {
+                gameId: 1,
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "X"
+            }
+        ];
+    });
+
+
+
 });

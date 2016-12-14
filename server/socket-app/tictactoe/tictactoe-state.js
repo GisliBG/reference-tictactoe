@@ -5,18 +5,24 @@ module.exports = function (injected) {
     return function (history) {
 
         var gamefull=false;
+        var player = 'X';
 
         function processEvent(event) {
             if(event.type==="GameJoined"){
                 gamefull=true;
             }
+
         }
 
         function processEvents(history) {
             _.each(history, processEvent);
         }
 
-        function gameFull(){
+        function getPlayer() {
+            return player;
+        }
+
+        function gameFull() {
             return gamefull;
         }
 

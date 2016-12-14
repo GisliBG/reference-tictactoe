@@ -134,5 +134,4 @@ describe("Game command handler", function () {
         expect(resultingEvents[0].gameId).toEqual('thisIsTheGame');
         expect(resultingEvents[0].userSession.clientId).toEqual(999);
     });
-
 });
