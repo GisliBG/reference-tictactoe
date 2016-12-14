@@ -20,6 +20,12 @@ fi
 echo Building app
 npm run build
 
+rc=$?
+if [[ $rc != 0 ]] ; then
+    echo "Npm test failed with exit code " $rc
+    exit $rc
+fi
+
 #Move neccesery files to build folder so they will be available on other state machines
 cp ./Dockerfile ./build/
 cp ./migratescript.sh ./build/
