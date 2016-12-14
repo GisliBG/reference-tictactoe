@@ -208,11 +208,11 @@ describe('Place move command', function() {
         ];
     });
 
-    it('Should emit gameWon on win', function() {
+    it('Should emit gameWon with three horizontal X at the top', function() {
         given = [
-            createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
-            movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 1),
-            movePlacedEvent("Gummi", 'O', 4)
+                    createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
+                    movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 1),
+                    movePlacedEvent("Gummi", 'O', 4)
                 ];
         when = placeMoveEvent("Gisli", 'X', 2);
         then = [ movePlacedEvent("Gisli", 'X', 2),
@@ -225,6 +225,29 @@ describe('Place move command', function() {
                 timeStamp: "2014-12-02T11:29:29",
                 side: "X",
                 mark: 2
+            }
+        ];
+    });
+
+    it('Should not emit game draw if won on last move', function() {
+        given = [
+            createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
+            movePlacedEvent("Gummi", 'O', 1),               movePlacedEvent("Gisli", 'X', 2),
+            movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 4),
+            movePlacedEvent("Gummi", 'O', 5),               movePlacedEvent("Gisli", 'X', 8),
+            movePlacedEvent("Gummi", 'O', 7),              
+                ];
+        when = placeMoveEvent("Gisli", 'X', 6);
+        then = [ movePlacedEvent("Gisli", 'X', 6),
+            {
+                type: "GameWon",
+                user: {
+                    userName: "Gisli"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "X",
+                mark: 6
             }
         ];
     });
