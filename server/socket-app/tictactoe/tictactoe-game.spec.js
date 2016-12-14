@@ -193,7 +193,7 @@ describe('Place move command', function() {
             },
             name: "TheGame",
             timeStamp: "2014-12-02T11:29:29",
-            side:'X'
+            side:'X',
             },
             {
                 type: "GameJoined",
@@ -207,29 +207,84 @@ describe('Place move command', function() {
         ];
         when = 
         {
-            gameId: 1,
             type: "PlaceMove",
             user: {
                 userName: "TheGuy"
             },
             name: "TheGame",
             timeStamp: "2014-12-02T11:29:29",
-            side: "X"
+            side: "X",
+            mark: 0
         };
         then = [
             {
-                gameId: 1,
                 type: "MovePlaced",
                 user: {
                     userName: "TheGuy"
                 },
                 name: "TheGame",
                 timeStamp: "2014-12-02T11:29:29",
-                side: "X"
+                side: "X",
+                mark: 0
             }
         ];
     });
 
+    fit('should emit IllegalMove when square is already occupied', function() {
+        given = [
+            {
+                type: "GameCreated",
+                user: {
+                    userName: "TheGuy"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'X'
+            },
+            {
+                type: "GameJoined",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side:'O'
+            },
+            {
+                type: "MovePlaced",
+                user: {
+                    userName: "TheGuy"
+            },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "X",
+                mark: 0
+            },
+        ];
+        when = 
+        {
+            type: "PlaceMove",
+            user: {
+                userName: "Gummi"
+            },
+            name: "TheGame",
+            timeStamp: "2014-12-02T11:29:29",
+            side: "O",
+            mark: 0
+        };
+        then = [
+            {
+                type: "IllegalMove",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "O",
+                mark: 0
+            }
+        ];
+    });
 
 
 });

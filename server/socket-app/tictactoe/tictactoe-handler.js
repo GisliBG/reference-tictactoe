@@ -43,16 +43,29 @@ module.exports = function(injected){
                         }]);
                     },
                     "PlaceMove": function(cmd){
+                        console.debug("mark:", cmd.mark);
+                        if(gameState.isMarked(cmd.mark)) {
+                            eventHandler( [{
+                                gameId: cmd.gameId,
+                                type: "IllegalMove",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                mark: cmd.mark
+                            }]);
+                            return;
+                        }
 
-                        // Check here for conditions which prevent command from altering state
-                        events = [
+                        var events = [
                             {
                                 gameId: cmd.gameId,
                                 type: "MovePlaced",
                                 user: cmd.user,
                                 name: cmd.name,
                                 timeStamp: cmd.timeStamp,
-                                side: cmd.side
+                                side: cmd.side,
+                                mark: cmd.mark
                             }
                         ];
 

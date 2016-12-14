@@ -18,6 +18,7 @@ exports.up = function(db,callback) {
   db.createTable('eventlog', {
     timestamp:{ type:'datetime'},
     id: { type: 'string', primaryKey: true },
+    aggregate_id: { type: 'string'},
     json: 'string'
   }, callback);};
 
