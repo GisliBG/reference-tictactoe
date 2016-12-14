@@ -18,7 +18,7 @@ if [[ $rc != 0 ]] ; then
 fi
 
 echo Building app
-CI=true npm run build
+npm run build
 
 #Move neccesery files to build folder so they will be available on other state machines
 cp ./Dockerfile ./build/
