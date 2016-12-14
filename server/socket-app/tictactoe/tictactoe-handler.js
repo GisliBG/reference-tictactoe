@@ -67,8 +67,8 @@ module.exports = function(injected){
                                 mark: cmd.mark
                             }]);
                             return;
-                        }
-
+                        }                       
+                        
                         var events = [
                             {
                                 gameId: cmd.gameId,
@@ -82,6 +82,18 @@ module.exports = function(injected){
                         ];
 
                         gameState.processEvents(events);
+
+                        if(gameState.gameHasBeenWon()) {
+                            events.push({
+                                gameId: cmd.gameId,
+                                type: "GameWon",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                mark: cmd.mark
+                            });
+                        } 
 
                         // Check here for conditions which may warrant additional events to be emitted.
                         eventHandler(events);

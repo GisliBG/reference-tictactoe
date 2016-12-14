@@ -205,7 +205,28 @@ describe('Place move command', function() {
                 side: "O",
                 mark: 1
             }
-        ]
-    })
+        ];
+    });
+
+    it('Should emit gameWon on win', function() {
+        given = [
+            createEvent("Gisli"), gameJoinedEvent("Gummi"), movePlacedEvent("Gisli", 'X', 0),
+            movePlacedEvent("Gummi", 'O', 3),               movePlacedEvent("Gisli", 'X', 1),
+            movePlacedEvent("Gummi", 'O', 4)
+                ];
+        when = placeMoveEvent("Gisli", 'X', 2);
+        then = [ movePlacedEvent("Gisli", 'X', 2),
+            {
+                type: "GameWon",
+                user: {
+                    userName: "Gisli"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "X",
+                mark: 2
+            }
+        ];
+    });
 
 });
