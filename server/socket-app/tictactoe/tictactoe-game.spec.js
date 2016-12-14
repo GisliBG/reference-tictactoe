@@ -191,5 +191,21 @@ describe('Place move command', function() {
         ];
     });
 
+    it('Should emit NotYourMove if attempting to make move out of turn', function() {
+        given = [createEvent("Gisli"), gameJoinedEvent("Gummi")];
+        when = placeMoveEvent("Gummi", 'O', 1);
+        then = [
+            {
+                type: "NotYourMove",
+                user: {
+                    userName: "Gummi"
+                },
+                name: "TheGame",
+                timeStamp: "2014-12-02T11:29:29",
+                side: "O",
+                mark: 1
+            }
+        ]
+    })
 
 });

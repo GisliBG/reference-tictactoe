@@ -28,6 +28,13 @@ module.exports = function (injected) {
             _.each(history, processEvent);
         }
 
+        function outOfTurn(side) {
+            if(side===player) {
+                return false;
+            }
+            return true;
+        }
+
         function isMarked(mark) {
             console.debug("isMarked", gameBoard[mark]);
             console.debug("Theboard", gameBoard);
@@ -48,6 +55,7 @@ module.exports = function (injected) {
         processEvents(history);
 
         return {
+            outOfTurn: outOfTurn,
             isMarked: isMarked,
             gameFull: gameFull,
             processEvents: processEvents

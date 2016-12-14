@@ -43,6 +43,19 @@ module.exports = function(injected){
                         }]);
                     },
                     "PlaceMove": function(cmd){
+                        if(gameState.outOfTurn(cmd.side)) {
+                            eventHandler( [{
+                                gameId: cmd.gameId,
+                                type: "NotYourMove",
+                                user: cmd.user,
+                                name: cmd.name,
+                                timeStamp: cmd.timeStamp,
+                                side: cmd.side,
+                                mark: cmd.mark
+                            }]);
+                            return;
+                        }
+
                         if(gameState.isMarked(cmd.mark)) {
                             eventHandler( [{
                                 gameId: cmd.gameId,
