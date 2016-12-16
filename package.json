@@ -24,9 +24,10 @@
     "expect.js": "^0.3.1",
     "jasmine": "^2.5.2",
     "jasmine-console-reporter": "^1.2.7",
+    "jasmine-reporters": "^2.2.0",
     "should": "^11.1.1",
     "socket.io-client": "^1.6.0"
-},
+  },
   "scripts": {
     "startclient": "cd ./client && npm run start",
     "buildclient": "cd ./client && npm run build",
