@@ -6,7 +6,7 @@ services:
     environment:
       - PGHOST=postgres
       - PGPORT=5432
-      - NODE_ENV=prod
+      - NODE_ENV=production
     ports:
       - "80:8080"
       - "8080:3000"
