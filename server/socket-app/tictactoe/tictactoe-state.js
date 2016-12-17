@@ -19,7 +19,7 @@ module.exports = function (injected) {
             if(event.type==="MovePlaced") {
                 gameBoard[event.mark] = player;
                 moves++;
-                
+                console.log(gameBoard);
                 if(event.side === 'X') {
                     player = 'O';
                 }
