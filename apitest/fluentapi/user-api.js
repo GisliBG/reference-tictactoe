@@ -55,7 +55,6 @@ module.exports=function(injected){
                     waitingFor.pop();
                 });
                 return me;
-
             },
             expectGameCreated:()=>{
                 waitingFor.push("expectGameCreated");
