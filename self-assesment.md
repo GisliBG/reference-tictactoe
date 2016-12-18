@@ -1,3 +1,7 @@
+1. jenkins : http://82.221.49.171:8080 u:hannes p: kennari
+2. aws: http://35.160.42.253/
+3. git: https://github.com/GisliBG/reference-tictactoe
+
 Scripts
 
 Outline what script files you created and the purpose of each file. Each file should be commented. This could be
