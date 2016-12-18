@@ -28,6 +28,7 @@ fi
 
 cp ./Dockerfile ./build/
 cp ./migratescript.sh ./build/
+cp ./AcceptTests.sh ./build
 
 echo "sending to docker hub"
 ./dockerbuild.sh
