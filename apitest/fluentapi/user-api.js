@@ -126,7 +126,7 @@ module.exports=function(injected){
             then:(whenDoneWaiting)=>{
                 function waitLonger(){
                     if(waitingFor.length>0){
-                        setTimeout(waitLonger, 0);
+                        setTimeout(waitLonger, 2);
                         return;
                     }
                     whenDoneWaiting();
