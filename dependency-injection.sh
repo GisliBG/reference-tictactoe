@@ -21,6 +21,7 @@ npm run migratedb-dev
 echo "running tests"
 ./startTests.sh
 
+#If the test fail, stop!
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Npm test failed with exit code " $rc
@@ -30,6 +31,7 @@ fi
 echo "Building app"
 npm run build
 
+#You can't build? fix the problem and start again!
 rc=$?
 if [[ $rc != 0 ]] ; then
     echo "Npm test failed with exit code " $rc
