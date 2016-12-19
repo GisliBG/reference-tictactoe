@@ -67,7 +67,8 @@ Do you have the following Jobs and what happens in each Job:
     #yes - runs unit tests, builds the application and sends the artifact to docker hub.
 
     Acceptance Stage
-    #yes - it runs if the commit stage passes 
+    #yes - Sometimes it fails but passes if I manually start it again. I don't know why it
+    always works when I run these tests locally.
 
     Capacity Stage
     #yes - it runs if the acceptance stage passes 
